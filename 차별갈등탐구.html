@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<title>차별과 갈등 사례 탐구</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#f2f2ee;
+  --card:#ffffff;
+  --ink:#1b2a41;
+  --ink-2:#4a5a6f;
+  --ink-3:#8b97a6;
+  --rule:#dcded6;
+  --rule-2:#c5cabe;
+  --brick:#b23a30;
+  --brick-bg:#fbefed;
+  --brick-line:#e8c9c4;
+  --teal:#1c6c85;
+  --teal-bg:#ebf3f6;
+  --teal-line:#c3dbe3;
+  --ochre:#a8720a;
+  --ochre-bg:#fcf5e6;
+  --ochre-line:#e8d3a4;
+  --ok:#2e7d5b;
+  --ok-bg:#e9f3ee;
+  --ok-line:#c2ddce;
+  --font-display:"Gowun Batang","Nanum Myeongjo",'Apple SD Gothic Neo',serif;
+  --font-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-size:17px;line-height:1.68;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3,h4{margin:0;line-height:1.35;word-break:keep-all;text-wrap:balance}
+p{margin:0 0 .6em;word-break:keep-all}
+button{font-family:inherit;font-size:1rem;cursor:pointer}
+input,textarea{font-family:inherit;font-size:1rem;color:var(--ink)}
+a{color:var(--teal)}
+:focus-visible{outline:2.5px solid var(--ink);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- 머리말 ---------- */
+.masthead{background:var(--ink);color:#f4f5f2;padding:26px 18px 22px}
+.masthead .inner{max-width:880px;margin:0 auto}
+.eyebrow{
+  font-size:.74rem;letter-spacing:.22em;font-weight:600;color:#9fb0c4;
+  margin-bottom:8px;
+}
+.masthead h1{font-family:var(--font-display);font-size:1.85rem;font-weight:700;letter-spacing:-.01em}
+.masthead p{margin:.4em 0 0;color:#b9c6d4;font-size:.95rem;max-width:56ch}
+.masthead .tools{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.masthead .tools button{
+  background:transparent;border:1px solid #556b85;color:#dfe6ed;
+  border-radius:6px;padding:7px 14px;font-size:.87rem;font-weight:500;transition:.15s;
+}
+.masthead .tools button:hover{background:#2a3d59;border-color:#8398b0;color:#fff}
+.splitrule{display:flex;height:4px}
+.splitrule i:first-child{flex:45;background:var(--brick)}
+.splitrule i:last-child{flex:55;background:var(--teal)}
+
+/* ---------- 단계 표시 ---------- */
+.stepbar{position:sticky;top:0;z-index:20;background:rgba(242,242,238,.96);
+  border-bottom:1px solid var(--rule-2);backdrop-filter:blur(8px)}
+.stepbar .inner{max-width:880px;margin:0 auto;display:flex;padding:9px 12px;
+  overflow-x:auto;scrollbar-width:none;gap:2px}
+.stepbar .inner::-webkit-scrollbar{display:none}
+.pstep{flex:1 0 auto;min-width:100px;display:flex;flex-direction:column;align-items:center;gap:4px;
+  background:none;border:0;padding:5px 4px;border-radius:6px;color:var(--ink-3);transition:.15s}
+.pstep .num{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  background:transparent;border:1.5px solid var(--rule-2);color:var(--ink-3);
+  font-weight:600;font-size:.9rem;transition:.15s;font-variant-numeric:tabular-nums}
+.pstep .lbl{font-size:.79rem;white-space:nowrap;font-weight:500}
+.pstep.done{color:var(--ok)}
+.pstep.done .num{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ok)}
+.pstep.active{color:var(--ink)}
+.pstep.active .num{background:var(--ink);border-color:var(--ink);color:#fff}
+.pstep.active .lbl{font-weight:700}
+.pstep:hover{background:#e7e8e2}
+
+/* ---------- 본문 ---------- */
+.wrap{max-width:880px;margin:0 auto;padding:0 18px 152px}
+.step{display:none}
+.step.on{display:block}
+
+.sectionhead{margin:30px 0 4px}
+.sectionhead .kicker{
+  font-size:.75rem;letter-spacing:.2em;font-weight:600;color:var(--ink-3);display:block;margin-bottom:4px;
+}
+.sectionhead h2{font-family:var(--font-display);font-size:1.5rem;font-weight:700}
+.lede{color:var(--ink-2);font-size:.97rem;margin:6px 0 0;max-width:60ch}
+
+.sheet{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:22px;margin:18px 0}
+.sheet.flat{background:none;border:0;padding:0}
+
+.aside{border-left:3px solid var(--ochre);background:var(--ochre-bg);padding:13px 16px;
+  font-size:.92rem;line-height:1.62;margin:16px 0;color:#6d4a05}
+.aside strong{display:block;margin-bottom:3px;color:#5a3d04}
+.aside.cool{border-left-color:var(--teal);background:var(--teal-bg);color:#14515f}
+.aside.cool strong{color:#0f3f4b}
+
+/* ---------- 유형 카드 ---------- */
+.grouphead{display:flex;align-items:baseline;gap:10px;margin:2px 0 12px;
+  padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.grouphead h3{font-family:var(--font-display);font-size:1.18rem;font-weight:700}
+.grouphead .gloss{font-size:.86rem;color:var(--ink-2)}
+.grouphead.d h3{color:var(--brick)}
+.grouphead.c h3{color:var(--teal)}
+
+.typegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px}
+.tcard{position:relative;text-align:left;background:#fdfdfc;border:1px solid var(--rule);
+  border-radius:5px;padding:11px 12px 10px;line-height:1.4;transition:.13s;color:var(--ink)}
+.tcard .ico{font-size:1.3rem;display:block;margin-bottom:5px;filter:saturate(.9)}
+.tcard .nm{font-weight:600;font-size:.95rem}
+.tcard:hover{border-color:var(--rule-2);background:#fff}
+.tcard.sel{border-width:2px;padding:10px 11px 9px}
+.tcard.d.sel{border-color:var(--brick);background:var(--brick-bg)}
+.tcard.c.sel{border-color:var(--teal);background:var(--teal-bg)}
+.tcard.sel::after{content:"✓";position:absolute;top:5px;right:8px;font-weight:700;font-size:.95rem}
+.tcard.d.sel::after{color:var(--brick)}
+.tcard.c.sel::after{color:var(--teal)}
+
+.picked{margin-top:24px;padding-top:20px;border-top:2px solid var(--ink)}
+.picked > h3{font-family:var(--font-display);font-size:1.12rem;margin-bottom:12px}
+.pickitem{display:flex;gap:12px;padding:12px 0;border-bottom:1px dotted var(--rule-2)}
+.pickitem:last-child{border-bottom:0;padding-bottom:0}
+.pickitem .big{font-size:1.6rem;line-height:1.2;flex:none}
+.pickitem h4{font-size:1.02rem;margin-bottom:1px}
+.pickitem p{margin:0;font-size:.93rem;color:var(--ink-2)}
+.pickitem input{width:100%;margin-top:9px}
+.blank{color:var(--ink-3);font-size:.93rem;border:1px dashed var(--rule-2);
+  border-radius:5px;padding:16px;text-align:center;background:#fbfbf9}
+
+/* ---------- 질문 ---------- */
+.q{margin:0 0 22px;padding-bottom:20px;border-bottom:1px solid var(--rule)}
+.q:last-child{border-bottom:0;padding-bottom:0;margin-bottom:0}
+.q > label,.q .qlabel{display:block;font-weight:600;font-size:1.04rem;margin-bottom:8px}
+.q .qsub{font-size:.86rem;color:var(--ink-3);font-weight:400;margin-left:4px}
+.qnum{font-family:var(--font-display);font-weight:700;color:var(--teal);margin-right:5px}
+textarea,input[type=text],input[type=url]{
+  width:100%;border:1px solid var(--rule-2);border-radius:4px;padding:11px 13px;
+  background:#fdfdfc;line-height:1.7;resize:vertical;transition:.13s}
+textarea:focus,input:focus{outline:none;border-color:var(--ink);background:#fff;
+  box-shadow:inset 3px 0 0 var(--teal)}
+textarea{min-height:94px}
+textarea.big{min-height:132px}
+.counter{text-align:right;font-size:.79rem;color:var(--ink-3);margin-top:4px;
+  font-variant-numeric:tabular-nums}
+
+details.hint{margin-top:10px;border:1px solid var(--teal-line);background:var(--teal-bg);border-radius:4px}
+details.hint summary{cursor:pointer;list-style:none;padding:8px 13px;font-size:.89rem;
+  font-weight:600;color:var(--teal)}
+details.hint summary::-webkit-details-marker{display:none}
+details.hint summary::before{content:"💡 생각 도움말"}
+details.hint summary span{display:none}
+details.hint[open] summary{border-bottom:1px solid var(--teal-line)}
+details.hint .body{padding:11px 15px 13px;font-size:.9rem;color:#1c4d5a}
+details.hint ul{margin:0;padding-left:18px}
+details.hint li{margin:4px 0}
+details.hint .warn{margin-top:9px;font-size:.85rem;color:#6d4a05;background:var(--ochre-bg);
+  border-radius:4px;padding:8px 11px}
+
+/* ---------- 선택 항목 ---------- */
+.checkgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:8px}
+.check{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--rule-2);border-radius:4px;
+  padding:10px 12px;background:#fdfdfc;cursor:pointer;transition:.13s;font-size:.95rem;line-height:1.45}
+.check:hover{border-color:var(--ink-3)}
+.check input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--ink);flex:none;cursor:pointer}
+.check.on{border-color:var(--ink);background:#f4f6f8;font-weight:500}
+.otherbox{margin-top:10px}
+
+/* ---------- 입장 ---------- */
+.pos{border:1px solid var(--rule-2);border-radius:5px;padding:15px;margin-bottom:11px;background:#fdfdfc}
+.pos .head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.pos .tag{font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--ok);
+  border-bottom:2px solid var(--ok-line);padding-bottom:1px}
+.pos .sub{font-size:.87rem;font-weight:600;color:var(--ink-2);margin:11px 0 5px}
+.srcrow{display:flex;gap:8px;margin-bottom:9px;flex-wrap:wrap}
+.srcrow input{flex:1 1 210px}
+.mini{border:1px solid var(--rule-2);background:#fff;border-radius:4px;padding:7px 13px;
+  font-size:.87rem;font-weight:600;color:var(--ink-2);transition:.13s}
+.mini:hover{border-color:var(--ink);color:var(--ink)}
+.mini.del{color:var(--brick);border-color:var(--brick-line)}
+.mini.del:hover{background:var(--brick-bg);border-color:var(--brick)}
+.rowbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+
+/* ---------- 주장 문장 ---------- */
+.claim{background:var(--ochre-bg);border:1px solid var(--ochre-line);border-radius:5px;padding:20px}
+.claim .line{font-family:var(--font-display);font-size:1.18rem;font-weight:700;line-height:2.2;color:#5a3d04}
+.claim input{border:0;border-bottom:2px solid var(--ochre);background:transparent;border-radius:0;
+  padding:3px 6px;min-width:min(100%,330px);font-family:var(--font-display);font-weight:700;color:#7d5406}
+.claim input:focus{box-shadow:none;background:#fffdf7;border-color:var(--ink)}
+.claim input::placeholder{font-family:var(--font-body);font-weight:400;font-size:.9rem}
+.claim .prev{margin-top:14px;padding-top:13px;border-top:1px dotted var(--ochre-line);
+  font-size:.94rem;color:#6d4a05}
+
+/* ---------- 하단 이동 ---------- */
+.navbar{position:fixed;left:0;right:0;bottom:0;background:rgba(242,242,238,.97);
+  border-top:1px solid var(--rule-2);padding:11px 18px 9px;z-index:30;backdrop-filter:blur(8px)}
+.navbar .inner{max-width:880px;margin:0 auto;display:flex;gap:10px}
+.btn{border:1px solid var(--ink);border-radius:5px;padding:13px 22px;font-weight:600;
+  font-size:1rem;transition:.14s;background:#fff;color:var(--ink)}
+.btn.primary{background:var(--ink);color:#fff;flex:1}
+.btn.primary:hover{background:#0f1c2e}
+.btn.ghost{border-color:var(--rule-2);color:var(--ink-2)}
+.btn.ghost:hover{border-color:var(--ink);color:var(--ink)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.savenote{max-width:880px;margin:7px auto 0;font-size:.78rem;color:var(--ink-3);text-align:center}
+
+/* ---------- 결과 카드 ---------- */
+.rcard{background:var(--card);border:1px solid var(--ink);border-radius:4px;overflow:hidden}
+.rhead{padding:20px 22px 18px;border-bottom:2px solid var(--ink);background:#fbfbf9}
+.rhead .kicker{font-size:.73rem;letter-spacing:.2em;color:var(--ink-3);font-weight:600}
+.rhead h3{font-family:var(--font-display);font-size:1.42rem;font-weight:700;margin-top:5px}
+.rhead .meta{margin-top:3px;font-size:.85rem;color:var(--ink-2)}
+.namelines{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;font-size:.88rem;color:var(--ink-2)}
+.namelines span{border-bottom:1px solid var(--ink-3);padding:0 46px 3px 0}
+.rsec{padding:15px 22px;border-top:1px solid var(--rule)}
+.rsec:first-of-type{border-top:0}
+.rsec h4{font-size:.88rem;letter-spacing:.04em;color:var(--teal);display:flex;
+  align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px;font-weight:600}
+.rsec .val{white-space:pre-wrap;font-size:.97rem}
+.rsec .val.muted{color:var(--ink-3)}
+.rsec .val.why{color:var(--ink-2);font-size:.93rem;margin-top:2px}
+.rsec .sub{font-weight:600;font-size:.9rem;margin-top:11px;color:var(--ink-2)}
+.taglist{display:flex;flex-wrap:wrap;gap:6px}
+.taglist span{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal-line);
+  border-radius:3px;padding:2px 9px;font-size:.87rem;font-weight:500}
+.taglist.g span{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-line)}
+.claimbox{font-family:var(--font-display);background:var(--ochre-bg);border:1px solid var(--ochre-line);
+  border-radius:4px;padding:15px 17px;font-size:1.1rem;font-weight:700;color:#5a3d04;line-height:1.8}
+.srclist{margin:0;padding-left:20px;font-size:.93rem}
+.srclist li{margin:4px 0;word-break:break-all}
+
+.gauge{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:15px 18px;margin:18px 0}
+.gauge .top{display:flex;justify-content:space-between;font-size:.9rem;font-weight:600}
+.gauge .top b{font-variant-numeric:tabular-nums}
+.bar{background:#e7e8e2;border-radius:2px;height:8px;overflow:hidden;margin:9px 0 6px}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .45s ease}
+.gauge .note{font-size:.85rem;color:var(--ink-2)}
+
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:9px;margin-top:18px}
+.actions button{border-radius:5px;padding:14px 12px;font-weight:600;border:1px solid var(--rule-2);
+  background:#fff;color:var(--ink);transition:.14s}
+.actions button:hover{border-color:var(--ink)}
+.actions .go{background:var(--ink);color:#fff;border-color:var(--ink)}
+.actions .go:hover{background:#0f1c2e}
+.actions .del{color:var(--brick);border-color:var(--brick-line)}
+.actions .del:hover{background:var(--brick-bg);border-color:var(--brick)}
+
+#toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,14px);z-index:60;
+  background:var(--ink);color:#fff;padding:11px 20px;border-radius:4px;font-size:.92rem;
+  font-weight:500;opacity:0;pointer-events:none;transition:.2s;max-width:88vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:540px){
+  body{font-size:16px}
+  .masthead h1{font-size:1.45rem}
+  .sheet{padding:17px 15px}
+  .typegrid{grid-template-columns:repeat(2,1fr)}
+  .pstep{min-width:72px}
+  .pstep .lbl{font-size:.71rem}
+  .btn{padding:12px 15px}
+  .rsec,.rhead{padding-left:16px;padding-right:16px}
+}
+
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;font-size:11.5pt}
+  .masthead,.splitrule,.stepbar,.navbar,#toast,.no-print{display:none!important}
+  .wrap{padding:0;max-width:none}
+  .sectionhead,.lede,.gauge{display:none!important}
+  .sheet{border:0;padding:0;margin:0}
+  .rcard{border:1.2pt solid #1b2a41;page-break-inside:auto}
+  .rhead{background:#f3f3ef!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rsec{page-break-inside:avoid;border-top:.6pt solid #999;padding:8pt 11pt}
+  .rsec h4{color:#000}
+  .taglist span,.claimbox{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .srclist a{color:#000;text-decoration:none}
+}
+</style>
+
+<header class="masthead no-print">
+  <div class="inner">
+    <span class="eyebrow">중학교 1학년 사회 · 탐구 활동</span>
+    <h1>차별과 갈등 사례 탐구</h1>
+    <p>우리 사회의 차별과 갈등을 직접 찾아보고, 여러 사람의 입장을 살펴본 뒤 근거를 갖춘 내 생각을 정리하는 활동입니다.</p>
+    <div class="tools">
+      <button type="button" onclick="loadExample()">예시 결과 보기</button>
+      <button type="button" onclick="resetAll()">처음부터 다시</button>
+    </div>
+  </div>
+</header>
+<div class="splitrule no-print"><i></i><i></i></div>
+
+<nav class="stepbar no-print" aria-label="진행 단계">
+  <div class="inner" id="stepbar"></div>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ STEP 1 ============ -->
+<section class="step on" id="step1">
+  <div class="sectionhead">
+    <span class="kicker">첫째 단계</span>
+    <h2>① 내가 관심 있는 유형 찾기</h2>
+  </div>
+  <p class="lede">더 알아보고 싶은 <b>차별 또는 갈등 유형을 1~2개</b> 골라 보세요. 고르면 아래에 짧은 설명이 나타납니다.</p>
+
+  <div class="sheet">
+    <div class="grouphead d"><h3>차별</h3><span class="gloss">누군가를 정당한 이유 없이 다르게 대하는 일</span></div>
+    <div class="typegrid" id="gridD"></div>
+
+    <div class="grouphead c" style="margin-top:28px"><h3>갈등</h3><span class="gloss">생각이나 이익이 달라 서로 부딪히는 일</span></div>
+    <div class="typegrid" id="gridC"></div>
+
+    <div class="picked" id="pickedBox"></div>
+  </div>
+
+  <div class="aside">
+    <strong>함께 지켜요</strong>
+    이 활동에는 정해진 정답이 없습니다. 같은 사례를 두고도 서로 다른 생각이 있을 수 있으니,
+    특정한 사람이나 집단을 <b>비난하거나 미워하는 표현</b>은 쓰지 않기로 해요.
+    이름·학교·연락처 같은 <b>개인정보는 적지 않습니다.</b>
+  </div>
+</section>
+
+<!-- ============ STEP 2 ============ -->
+<section class="step" id="step2">
+  <div class="sectionhead">
+    <span class="kicker">둘째 단계</span>
+    <h2>② 사례 찾아보기</h2>
+  </div>
+  <p class="lede">내가 고른 유형과 관련된 <b>실제 사례</b>를 찾아 다섯 가지 질문에 정리해 보세요.</p>
+
+  <div class="aside cool">
+    <strong>믿을 수 있는 자료를 찾아요</strong>
+    뉴스 기사, 공공기관 자료, 국가인권위원회 자료처럼 <b>출처가 분명한 자료</b>를 활용해 보세요.
+    누가 만든 자료인지, 언제 나온 자료인지 확인하면 좋습니다.
+    읽을 때는 <b>사실</b>과 글쓴이의 <b>의견</b>을 구분하며 읽어 봅시다.
+  </div>
+
+  <div class="sheet">
+    <div class="q">
+      <label for="c1"><span class="qnum">1</span>어떤 차별 또는 갈등 사례인가요?<span class="qsub">한 문장으로</span></label>
+      <textarea id="c1" data-field="cs.what" data-count placeholder="예) ○○을 이유로 △△를 할 수 없었던 일"></textarea>
+      <details class="hint"><summary></summary><div class="body">
+        <ul><li>이 사례를 친구에게 한 문장으로 소개한다면 뭐라고 할까?</li>
+        <li>신문 기사 제목처럼 붙인다면 어떤 제목이 좋을까?</li></ul></div></details>
+    </div>
+
+    <div class="q">
+      <label for="c2"><span class="qnum">2</span>언제, 어디에서 일어난 일인가요?</label>
+      <textarea id="c2" data-field="cs.when" data-count placeholder="예) 2023년, 우리나라 ○○ 지역"></textarea>
+    </div>
+
+    <div class="q">
+      <label for="c3"><span class="qnum">3</span>어떤 사람들이 관련되어 있나요?</label>
+      <textarea id="c3" data-field="cs.who" data-count placeholder="예) 학생, 주민, 회사, 시청 등"></textarea>
+      <details class="hint"><summary></summary><div class="body">
+        <ul><li>직접 피해를 본 사람은 누구일까?</li>
+        <li>결정을 내린 사람이나 기관은 누구일까?</li>
+        <li>옆에서 지켜보기만 한 사람들도 있을까?</li></ul></div></details>
+    </div>
+
+    <div class="q">
+      <label for="c4"><span class="qnum">4</span>어떤 일이 있었나요?<span class="qsub">사실 위주로</span></label>
+      <textarea id="c4" class="big" data-field="cs.happened" data-count placeholder="일어난 일을 순서대로 적어 보세요."></textarea>
+      <details class="hint"><summary></summary><div class="body">
+        <ul><li>처음에 무슨 일이 있었지? → 그다음에는?</li>
+        <li>사람들은 어떻게 반응했을까?</li></ul>
+        <div class="warn">여기에는 <b>내 의견</b>이 아니라 자료에서 <b>확인한 사실</b>을 적어 보세요.</div></div></details>
+    </div>
+
+    <div class="q">
+      <label for="c5"><span class="qnum">5</span>이 사례에서 문제가 되는 부분은 무엇인가요?</label>
+      <textarea id="c5" data-field="cs.problem" data-count placeholder="무엇이 공정하지 않다고 느껴지나요?"></textarea>
+      <details class="hint"><summary></summary><div class="body">
+        <ul><li>누군가 부당하게 손해를 보고 있지는 않을까?</li>
+        <li>같은 상황인데 다르게 대우받은 부분이 있을까?</li></ul></div></details>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="qlabel">참고한 자료 (출처)</div>
+    <p class="lede" style="margin-bottom:12px">자료의 <b>이름</b>과 <b>주소</b>를 적어 두면 나중에 다시 찾기 쉽고, 발표할 때 근거로 쓸 수 있어요.</p>
+    <div id="srcList"></div>
+    <div class="rowbtns"><button type="button" class="mini" onclick="addSource()">＋ 출처 추가</button></div>
+  </div>
+</section>
+
+<!-- ============ STEP 3 ============ -->
+<section class="step" id="step3">
+  <div class="sectionhead">
+    <span class="kicker">셋째 단계</span>
+    <h2>③ 사례 분석하기</h2>
+  </div>
+  <p class="lede">조사한 사례를 <b>원인 · 영향 · 입장</b>의 세 가지로 나누어 살펴봅시다.</p>
+
+  <div class="sheet">
+    <div class="q">
+      <div class="qlabel"><span class="qnum">1</span>무엇 때문에 발생한 문제일까요?<span class="qsub">여러 개 선택 가능</span></div>
+      <div class="checkgrid" id="causeGrid"></div>
+      <div class="otherbox" id="causeOtherBox" hidden>
+        <input type="text" data-field="causeOther" placeholder="기타 — 원인을 직접 적어 보세요">
+      </div>
+    </div>
+
+    <div class="q">
+      <div class="qlabel"><span class="qnum">2</span>누가 영향을 받고 있을까요?<span class="qsub">여러 개 선택 가능</span></div>
+      <div class="checkgrid" id="affectGrid"></div>
+      <div class="otherbox" id="affectOtherBox" hidden>
+        <input type="text" data-field="affectOther" placeholder="기타 — 영향을 받는 대상을 직접 적어 보세요">
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="qlabel"><span class="qnum">3</span>이 사례에서 서로 다른 입장은 무엇일까요?</div>
+    <p class="lede" style="margin-bottom:14px">한 가지 일에도 <b>여러 입장</b>이 있을 수 있습니다.
+      어느 쪽이 옳다고 미리 정하지 말고, 각자의 생각을 있는 그대로 정리해 봅시다.</p>
+    <div id="posList"></div>
+    <div class="rowbtns"><button type="button" class="mini" onclick="addPosition()">＋ 입장 추가</button></div>
+    <details class="hint" style="margin-top:15px"><summary></summary><div class="body">
+      <ul><li>그 사람의 처지에서 보면 왜 그렇게 생각할 수밖에 없을까?</li>
+      <li>각 입장이 지키고 싶어 하는 것은 무엇일까? (안전, 비용, 시간, 권리, 전통 …)</li>
+      <li>두 입장이 함께 동의할 수 있는 부분은 없을까?</li></ul>
+      <div class="warn">상대 입장을 적을 때도 <b>비난하는 말 대신 설명하는 말</b>로 적어 보세요.</div></div></details>
+  </div>
+</section>
+
+<!-- ============ STEP 4 ============ -->
+<section class="step" id="step4">
+  <div class="sectionhead">
+    <span class="kicker">넷째 단계</span>
+    <h2>④ 나의 생각 정리하기</h2>
+  </div>
+  <p class="lede">이제 <b>나의 생각</b>을 글로 정리해 봅시다. 정답은 없지만, <b>이유(근거)</b>는 꼭 함께 적어 주세요.</p>
+
+  <div class="sheet">
+    <div class="q">
+      <label for="t1"><span class="qnum">1</span>나는 이 사례에 대해 어떻게 생각하나요?</label>
+      <textarea id="t1" class="big" data-field="th.q1" data-count placeholder="솔직한 내 생각을 적어 보세요."></textarea>
+      <details class="hint"><summary></summary><div class="body">
+        <ul><li>나는 이 사례에서 무엇이 가장 문제라고 생각할까?</li>
+        <li>내가 그 사람의 입장이라면 어떤 기분일까?</li>
+        <li>다른 사람의 입장에서는 어떻게 생각할 수 있을까?</li>
+        <li>모두가 공정하게 대우받으려면 어떻게 해야 할까?</li></ul>
+        <div class="warn">도움말을 그대로 옮겨 적지 말고, <b>내 문장</b>으로 바꾸어 써 보세요.</div></div></details>
+    </div>
+
+    <div class="q">
+      <label for="t2"><span class="qnum">2</span>그렇게 생각하는 이유는 무엇인가요?<span class="qsub">근거</span></label>
+      <textarea id="t2" class="big" data-field="th.q2" data-count placeholder="'왜냐하면 ~ 때문이다' 로 이어서 써 보세요."></textarea>
+      <details class="hint"><summary></summary><div class="body">
+        <ul><li>내가 조사한 <b>사실</b> 중에서 근거로 쓸 만한 것이 있을까?</li>
+        <li>비슷한 일을 내가 겪거나 본 적이 있을까?</li>
+        <li>내 생각에 반대하는 사람에게는 뭐라고 설명할까?</li></ul></div></details>
+    </div>
+
+    <div class="q">
+      <label for="t3"><span class="qnum">3</span>이 갈등이나 차별을 해결하려면 어떤 노력이 필요할까요?</label>
+      <textarea id="t3" class="big" data-field="th.q3" data-count placeholder="개인 / 학교 / 사회·국가 가 할 수 있는 일로 나누어 적어도 좋아요."></textarea>
+      <details class="hint"><summary></summary><div class="body">
+        <ul><li>개인이 바꿀 수 있는 것은? 사회가 바꿔야 하는 것은?</li>
+        <li>법이나 제도를 고쳐야 할까, 사람들의 생각이 바뀌어야 할까?</li>
+        <li>서로 대화할 자리가 필요하지는 않을까?</li></ul></div></details>
+    </div>
+
+    <div class="q">
+      <label for="t4"><span class="qnum">4</span>내가 지금 할 수 있는 작은 실천은 무엇인가요?</label>
+      <textarea id="t4" data-field="th.q4" data-count placeholder="오늘부터 할 수 있는 아주 작은 것도 좋아요."></textarea>
+      <details class="hint"><summary></summary><div class="body">
+        <ul><li>말투나 태도에서 바꿀 수 있는 것이 있을까?</li>
+        <li>친구들에게 알릴 방법이 있을까?</li></ul></div></details>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="qlabel">나의 주장 한 문장</div>
+    <p class="lede" style="margin-bottom:14px">빈칸에 <b>이유(근거)</b>를 넣어 한 문장으로 완성해 보세요.</p>
+    <div class="claim">
+      <div class="line">나는
+        <input type="text" id="claimIn" data-field="claim" placeholder="여기에 이유를 적어요">
+        때문에 이 문제를 해결해야 한다고 생각한다.
+      </div>
+      <div class="prev" id="claimPrev"></div>
+    </div>
+    <details class="hint" style="margin-top:13px"><summary></summary><div class="body">
+      <ul><li>“불쌍해서”보다 <b>“∼할 권리가 있기 때문에”</b>처럼 이유를 분명히 써 보세요.</li>
+      <li>“모두에게 ∼가 필요하기 때문에”, “∼가 공정하지 않기 때문에”도 좋습니다.</li></ul></div></details>
+  </div>
+</section>
+
+<!-- ============ STEP 5 ============ -->
+<section class="step" id="step5">
+  <div class="sectionhead no-print">
+    <span class="kicker">다섯째 단계</span>
+    <h2>⑤ 나의 탐구 결과 확인</h2>
+  </div>
+  <p class="lede no-print">지금까지 정리한 내용입니다. 고치고 싶은 곳은 각 항목의 <b>수정</b>을 눌러 다시 작성할 수 있어요.</p>
+
+  <div class="gauge no-print">
+    <div class="top"><span>작성 완성도</span><b id="pctText">0%</b></div>
+    <div class="bar"><i id="barFill"></i></div>
+    <div class="note" id="pctNote"></div>
+  </div>
+
+  <div class="sheet flat">
+    <div class="rcard" id="printArea"></div>
+  </div>
+
+  <div class="actions no-print">
+    <button type="button" class="go" onclick="window.print()">🖨️ 인쇄하기</button>
+    <button type="button" onclick="savePdf()">📄 PDF로 저장</button>
+    <button type="button" onclick="goStep(1)">처음 단계로</button>
+    <button type="button" class="del" onclick="resetAll()">새로 작성하기</button>
+  </div>
+
+  <div class="aside no-print" style="margin-top:20px">
+    <strong>발표할 때 기억해요</strong>
+    친구의 생각이 나와 다르더라도 <b>“왜 그렇게 생각했는지”</b>를 먼저 물어봐 주세요.
+    서로 다른 입장을 이해하는 것도 이 활동의 중요한 목표입니다.
+  </div>
+</section>
+
+</div>
+
+<div class="navbar no-print">
+  <div class="inner">
+    <button type="button" class="btn ghost" id="prevBtn" onclick="goStep(cur-1)">← 이전</button>
+    <button type="button" class="btn primary" id="nextBtn" onclick="goStep(cur+1)">다음 →</button>
+  </div>
+  <div class="savenote">작성한 내용은 이 브라우저에 자동 저장됩니다 — 새로고침해도 남아 있어요.</div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===== 데이터 ===== */
+const TYPES_D = [
+  {id:'d1', ico:'⚖️', nm:'성별에 따른 차별',       desc:'성별이 다르다는 이유만으로 기회를 제한하거나 다르게 대하는 경우'},
+  {id:'d2', ico:'♿', nm:'장애에 따른 차별',       desc:'장애가 있다는 이유만으로 다른 사람보다 불리하게 대하거나 기회를 제한하는 경우'},
+  {id:'d3', ico:'⏳', nm:'나이(세대)에 따른 차별', desc:'나이가 많거나 적다는 이유로 생각이나 능력을 무시하고 다르게 대하는 경우'},
+  {id:'d4', ico:'🌍', nm:'인종·민족에 따른 차별',  desc:'피부색이나 민족이 다르다는 이유로 무시하거나 불리하게 대하는 경우'},
+  {id:'d5', ico:'🛂', nm:'국적에 따른 차별',       desc:'어느 나라 사람인지에 따라 기회를 제한하거나 다르게 대하는 경우'},
+  {id:'d6', ico:'🪞', nm:'외모에 따른 차별',       desc:'키, 몸무게, 생김새 등을 이유로 놀리거나 불리하게 대하는 경우'},
+  {id:'d7', ico:'💰', nm:'경제적 상황에 따른 차별', desc:'집안 형편이나 소득 수준을 이유로 무시하거나 기회를 제한하는 경우'},
+  {id:'d8', ico:'🕊️', nm:'종교에 따른 차별',       desc:'믿는 종교가 다르다는 이유로 불이익을 주거나 다르게 대하는 경우'},
+  {id:'d9', ico:'✏️', nm:'기타 (직접 쓰기)',       desc:'위에 없는 차별을 찾았다면 어떤 차별인지 직접 적어 보세요.', other:true}
+];
+const TYPES_C = [
+  {id:'c1', ico:'👨‍👩‍👧', nm:'세대 갈등',       desc:'나이대에 따라 생각과 문화가 달라서 생기는 의견 충돌'},
+  {id:'c2', ico:'🗺️', nm:'지역 갈등',          desc:'지역마다 사정이나 이익이 달라서 생기는 다툼'},
+  {id:'c3', ico:'💸', nm:'빈부 갈등',          desc:'가진 것의 차이가 커지면서 생기는 불만과 대립'},
+  {id:'c4', ico:'🤝', nm:'다문화 갈등',        desc:'문화·언어·관습이 서로 달라서 오해하거나 부딪히는 일'},
+  {id:'c5', ico:'⛪', nm:'종교 갈등',          desc:'서로 다른 종교의 믿음과 방식이 부딪히는 일'},
+  {id:'c6', ico:'🌱', nm:'환경 갈등',          desc:'환경 오염이나 시설 설치 등을 두고 생기는 대립'},
+  {id:'c7', ico:'🏭', nm:'노동 갈등',          desc:'일하는 사람과 일을 맡기는 쪽 사이에서 임금·근무 조건을 둘러싸고 생기는 대립'},
+  {id:'c8', ico:'🏗️', nm:'개발과 보존의 갈등', desc:'개발해서 얻는 이익과 자연·문화를 지키는 일 사이의 대립'},
+  {id:'c9', ico:'💬', nm:'온라인 갈등',        desc:'인터넷이나 SNS에서 말과 의견이 부딪히며 생기는 다툼'},
+  {id:'c10',ico:'✏️', nm:'기타 (직접 쓰기)',   desc:'위에 없는 갈등을 찾았다면 어떤 갈등인지 직접 적어 보세요.', other:true}
+];
+const ALL_TYPES = [...TYPES_D, ...TYPES_C];
+const CAUSES = ['서로의 생각이나 가치관이 달라서','편견이나 고정관념 때문에','서로의 이해관계가 달라서',
+  '사회적·경제적 차이 때문에','제도나 규칙 때문에','정보가 부족하거나 오해가 있어서','기타'];
+const AFFECTED = ['개인','특정 집단','지역 사회','국가 전체','기타'];
+const STEP_LABELS = ['관심 유형','사례 찾기','사례 분석','나의 생각','탐구 결과'];
+const KEY = 'social-dc-explore-v1';
+
+/* ===== 상태 ===== */
+function blank(){
+  return {
+    types:[], typeOther:{},
+    cs:{what:'',when:'',who:'',happened:'',problem:''},
+    sources:[{title:'',url:''}],
+    causes:[], causeOther:'',
+    affects:[], affectOther:'',
+    positions:[{content:'',reason:''},{content:'',reason:''}],
+    th:{q1:'',q2:'',q3:'',q4:''},
+    claim:''
+  };
+}
+let state = blank();
+let cur = 1;
+
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const getP = (o,p)=>p.split('.').reduce((a,k)=>a==null?undefined:a[k],o);
+function setP(o,p,v){const ks=p.split('.'),last=ks.pop();let t=o;ks.forEach(k=>{t[k]=t[k]||{};t=t[k];});t[last]=v;}
+
+let toastTimer;
+function toast(msg){
+  const t=$('#toast'); t.textContent=msg; t.classList.add('on');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('on'),2400);
+}
+
+/* ===== 저장 ===== */
+let saveTimer;
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} },250);
+}
+function load(){
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(!raw) return;
+    const d=JSON.parse(raw), b=blank();
+    state={...b,...d, cs:{...b.cs,...(d.cs||{})}, th:{...b.th,...(d.th||{})}, typeOther:{...(d.typeOther||{})}};
+    if(!Array.isArray(state.sources)||!state.sources.length) state.sources=[{title:'',url:''}];
+    if(!Array.isArray(state.positions)||state.positions.length<2) state.positions=b.positions;
+    ['types','causes','affects'].forEach(k=>{ if(!Array.isArray(state[k])) state[k]=[]; });
+    ['causeOther','affectOther','claim'].forEach(k=>{ if(typeof state[k]!=='string') state[k]=''; });
+  }catch(e){ state=blank(); }
+}
+
+/* ===== STEP 1 ===== */
+function renderTypeGrid(){
+  const mk=(list,cls)=>list.map(t=>{
+    const on=state.types.includes(t.id);
+    return `<button type="button" class="tcard ${cls}${on?' sel':''}" data-type="${t.id}"
+      aria-pressed="${on}"><span class="ico">${t.ico}</span><span class="nm">${esc(t.nm)}</span></button>`;
+  }).join('');
+  $('#gridD').innerHTML = mk(TYPES_D,'d');
+  $('#gridC').innerHTML = mk(TYPES_C,'c');
+  $$('[data-type]').forEach(b=>b.onclick=()=>toggleType(b.dataset.type));
+  renderPicked();
+}
+function toggleType(id){
+  const i=state.types.indexOf(id);
+  if(i>=0) state.types.splice(i,1);
+  else{
+    if(state.types.length>=2){ toast('유형은 최대 2개까지 고를 수 있어요'); return; }
+    state.types.push(id);
+  }
+  save(); renderTypeGrid();
+}
+function renderPicked(){
+  const box=$('#pickedBox');
+  if(!state.types.length){
+    box.innerHTML=`<div class="blank">위에서 관심 있는 유형을 <b>1~2개</b> 골라 보세요.</div>`;
+    return;
+  }
+  box.innerHTML = `<h3>내가 고른 유형</h3>` + state.types.map(id=>{
+    const t=ALL_TYPES.find(x=>x.id===id); if(!t) return '';
+    const other = t.other
+      ? `<input type="text" data-other="${t.id}" value="${esc(state.typeOther[t.id]||'')}"
+           placeholder="어떤 차별·갈등인지 직접 적어 보세요">` : '';
+    return `<div class="pickitem"><span class="big">${t.ico}</span>
+      <div><h4>${esc(t.nm)}</h4><p>${esc(t.desc)}</p>${other}</div></div>`;
+  }).join('');
+  $$('[data-other]').forEach(inp=>{ inp.oninput=()=>{ state.typeOther[inp.dataset.other]=inp.value; save(); }; });
+}
+
+/* ===== STEP 2 출처 ===== */
+function renderSources(){
+  $('#srcList').innerHTML = state.sources.map((s,i)=>`
+    <div class="srcrow">
+      <input type="text" data-src="${i}" data-k="title" value="${esc(s.title)}" placeholder="자료 이름 (예: ○○신문 기사, 국가인권위원회 자료)">
+      <input type="url"  data-src="${i}" data-k="url"   value="${esc(s.url)}"   placeholder="주소 (https://...)">
+      ${state.sources.length>1?`<button type="button" class="mini del" data-delsrc="${i}">삭제</button>`:''}
+    </div>`).join('');
+  $$('[data-src]').forEach(inp=>{ inp.oninput=()=>{ state.sources[+inp.dataset.src][inp.dataset.k]=inp.value; save(); }; });
+  $$('[data-delsrc]').forEach(b=>{ b.onclick=()=>{ state.sources.splice(+b.dataset.delsrc,1); save(); renderSources(); }; });
+}
+function addSource(){
+  if(state.sources.length>=5){ toast('출처는 5개까지 적을 수 있어요'); return; }
+  state.sources.push({title:'',url:''}); save(); renderSources();
+}
+
+/* ===== STEP 3 ===== */
+function renderChecks(){
+  const build=(list,key,grid,otherBox)=>{
+    $(grid).innerHTML = list.map(txt=>{
+      const on=state[key].includes(txt);
+      return `<label class="check${on?' on':''}"><input type="checkbox" data-ck="${key}"
+        value="${esc(txt)}" ${on?'checked':''}><span>${esc(txt)}</span></label>`;
+    }).join('');
+    $(otherBox).hidden = !state[key].includes('기타');
+  };
+  build(CAUSES,'causes','#causeGrid','#causeOtherBox');
+  build(AFFECTED,'affects','#affectGrid','#affectOtherBox');
+  $$('[data-ck]').forEach(cb=>{
+    cb.onchange=()=>{
+      const arr=state[cb.dataset.ck], i=arr.indexOf(cb.value);
+      if(cb.checked){ if(i<0) arr.push(cb.value); } else if(i>=0) arr.splice(i,1);
+      save(); renderChecks();
+    };
+  });
+}
+const POS_LETTER = i => String.fromCharCode(65+i);
+function renderPositions(){
+  $('#posList').innerHTML = state.positions.map((p,i)=>`
+    <div class="pos">
+      <div class="head"><span class="tag">입장 ${POS_LETTER(i)}</span>
+        ${state.positions.length>2?`<button type="button" class="mini del" data-delpos="${i}">삭제</button>`:''}</div>
+      <div class="sub">어떤 입장인가요? (누가, 무엇을 주장하나요)</div>
+      <textarea data-pos="${i}" data-k="content" placeholder="예) ○○의 입장: △△해야 한다.">${esc(p.content)}</textarea>
+      <div class="sub">왜 그렇게 생각할까요?</div>
+      <textarea data-pos="${i}" data-k="reason" placeholder="예) 왜냐하면 ~ 때문이다.">${esc(p.reason)}</textarea>
+    </div>`).join('');
+  $$('[data-pos]').forEach(t=>{ t.oninput=()=>{ state.positions[+t.dataset.pos][t.dataset.k]=t.value; save(); }; });
+  $$('[data-delpos]').forEach(b=>{ b.onclick=()=>{ state.positions.splice(+b.dataset.delpos,1); save(); renderPositions(); }; });
+}
+function addPosition(){
+  if(state.positions.length>=4){ toast('입장은 4개까지 정리할 수 있어요'); return; }
+  state.positions.push({content:'',reason:''}); save(); renderPositions();
+}
+
+/* ===== 입력 바인딩 ===== */
+function bindFields(){
+  $$('[data-field]').forEach(el=>{
+    el.value = getP(state, el.dataset.field) || '';
+    el.addEventListener('input',()=>{
+      setP(state, el.dataset.field, el.value);
+      updateCounter(el);
+      if(el.id==='claimIn') updateClaimPreview();
+      save();
+    });
+    updateCounter(el);
+  });
+}
+function updateCounter(el){
+  if(!el.hasAttribute('data-count')) return;
+  let c = el.nextElementSibling;
+  if(!c || !c.classList.contains('counter')){
+    c=document.createElement('div'); c.className='counter no-print';
+    el.parentNode.insertBefore(c, el.nextSibling);
+  }
+  c.textContent = `${el.value.length}자`;
+}
+function refreshFields(){
+  $$('[data-field]').forEach(el=>{ el.value = getP(state, el.dataset.field) || ''; updateCounter(el); });
+  updateClaimPreview();
+}
+function updateClaimPreview(){
+  const v=(state.claim||'').trim();
+  $('#claimPrev').innerHTML = v
+    ? `완성된 문장 — <b>나는 ${esc(v)} 때문에 이 문제를 해결해야 한다고 생각한다.</b>`
+    : `빈칸을 채우면 완성된 문장이 여기에 나타납니다.`;
+}
+
+/* ===== 단계 이동 ===== */
+function renderStepbar(){
+  $('#stepbar').innerHTML = STEP_LABELS.map((l,i)=>{
+    const n=i+1, cls = n===cur?'active':(n<cur?'done':'');
+    return `<button type="button" class="pstep ${cls}" data-go="${n}">
+      <span class="num">${n<cur?'✓':n}</span><span class="lbl">${l}</span></button>`;
+  }).join('');
+  $$('[data-go]').forEach(b=>b.onclick=()=>goStep(+b.dataset.go));
+}
+function goStep(n){
+  n=Math.min(5,Math.max(1,n));
+  if(n>1 && state.types.length===0){
+    toast('먼저 관심 있는 유형을 1개 이상 골라 주세요');
+    if(cur===1) return;
+    n=1;
+  }
+  cur=n;
+  $$('.step').forEach(s=>s.classList.remove('on'));
+  $('#step'+cur).classList.add('on');
+  renderStepbar();
+  $('#prevBtn').disabled = cur===1;
+  $('#nextBtn').textContent = cur===4 ? '결과 보기' : (cur===5 ? '완료' : '다음 →');
+  $('#nextBtn').disabled = cur===5;
+  if(cur===5) renderResult();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ===== STEP 5 ===== */
+function typeNames(){
+  return state.types.map(id=>{
+    const t=ALL_TYPES.find(x=>x.id===id); if(!t) return '';
+    const extra=(state.typeOther[id]||'').trim();
+    return t.other && extra ? `기타 — ${extra}` : t.nm;
+  }).filter(Boolean);
+}
+function val(v, empty='아직 작성하지 않았어요'){
+  const s=(v||'').trim();
+  return s ? `<div class="val">${esc(s)}</div>` : `<div class="val muted">${empty}</div>`;
+}
+function renderResult(){
+  const names = typeNames();
+  const causes = state.causes.map(c => c==='기타' && state.causeOther.trim() ? `기타 — ${state.causeOther.trim()}` : c);
+  const affects = state.affects.map(c => c==='기타' && state.affectOther.trim() ? `기타 — ${state.affectOther.trim()}` : c);
+  const srcs = state.sources.filter(s=>(s.title||'').trim()||(s.url||'').trim());
+  const claim = (state.claim||'').trim();
+  const today = new Date().toLocaleDateString('ko-KR');
+  const edit = n => `<button type="button" class="mini no-print" onclick="goStep(${n})">수정</button>`;
+
+  const posHtml = state.positions.map((p,i)=>{
+    if(!(p.content||'').trim() && !(p.reason||'').trim()) return '';
+    return `<div class="sub">입장 ${POS_LETTER(i)}</div>${val(p.content)}` +
+      ((p.reason||'').trim()?`<div class="val why">그 이유 — ${esc(p.reason.trim())}</div>`:'');
+  }).join('');
+
+  $('#printArea').innerHTML = `
+    <div class="rhead">
+      <span class="kicker">중학교 1학년 사회 · 탐구 활동지</span>
+      <h3>나의 차별·갈등 탐구 카드</h3>
+      <div class="meta">작성일 ${today}</div>
+      <div class="namelines"><span>학년 · 반</span><span>이름</span></div>
+    </div>
+
+    <div class="rsec"><h4>① 내가 선택한 유형 ${edit(1)}</h4>
+      ${names.length?`<div class="taglist">${names.map(n=>`<span>${esc(n)}</span>`).join('')}</div>`
+        :`<div class="val muted">선택한 유형이 없어요</div>`}</div>
+
+    <div class="rsec"><h4>② 내가 조사한 사례 ${edit(2)}</h4>
+      ${val(state.cs.what)}
+      <div class="sub">언제 · 어디에서</div>${val(state.cs.when)}
+      <div class="sub">관련된 사람들</div>${val(state.cs.who)}</div>
+
+    <div class="rsec"><h4>③ 사례의 핵심 내용 ${edit(2)}</h4>
+      ${val(state.cs.happened)}
+      <div class="sub">문제가 되는 부분</div>${val(state.cs.problem)}</div>
+
+    <div class="rsec"><h4>④ 차별·갈등의 원인 ${edit(3)}</h4>
+      ${causes.length?`<div class="taglist">${causes.map(c=>`<span>${esc(c)}</span>`).join('')}</div>`
+        :`<div class="val muted">아직 고르지 않았어요</div>`}
+      <div class="sub">영향을 받는 대상</div>
+      ${affects.length?`<div class="taglist g">${affects.map(c=>`<span>${esc(c)}</span>`).join('')}</div>`
+        :`<div class="val muted">아직 고르지 않았어요</div>`}</div>
+
+    <div class="rsec"><h4>⑤ 관련된 사람들의 입장 ${edit(3)}</h4>
+      ${posHtml || `<div class="val muted">아직 정리하지 않았어요</div>`}</div>
+
+    <div class="rsec"><h4>⑥ 나의 생각 ${edit(4)}</h4>
+      <div class="sub">이 사례에 대한 내 생각</div>${val(state.th.q1)}
+      <div class="sub">그렇게 생각하는 이유</div>${val(state.th.q2)}</div>
+
+    <div class="rsec"><h4>⑦ 내가 생각하는 해결 방법 ${edit(4)}</h4>
+      ${val(state.th.q3)}
+      <div class="sub">내가 할 수 있는 작은 실천</div>${val(state.th.q4)}</div>
+
+    <div class="rsec"><h4>⑧ 나의 주장 한 문장 ${edit(4)}</h4>
+      <div class="claimbox">${claim
+        ? `“나는 ${esc(claim)} 때문에 이 문제를 해결해야 한다고 생각한다.”`
+        : `“나는 __________ 때문에 이 문제를 해결해야 한다고 생각한다.”`}</div></div>
+
+    <div class="rsec"><h4>⑨ 참고 자료 ${edit(2)}</h4>
+      ${srcs.length ? `<ol class="srclist">${srcs.map(s=>{
+          const t=esc((s.title||'').trim()||'(제목 없음)'), u=(s.url||'').trim();
+          return `<li>${t}${u?` — <a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`:''}</li>`;
+        }).join('')}</ol>` : `<div class="val muted">참고 자료를 적지 않았어요</div>`}</div>`;
+  renderGauge();
+}
+function renderGauge(){
+  const checks = [
+    state.types.length>0,
+    !!state.cs.what.trim(), !!state.cs.when.trim(), !!state.cs.who.trim(),
+    !!state.cs.happened.trim(), !!state.cs.problem.trim(),
+    state.sources.some(s=>(s.title||'').trim()||(s.url||'').trim()),
+    state.causes.length>0, state.affects.length>0,
+    !!(state.positions[0]?.content||'').trim(), !!(state.positions[1]?.content||'').trim(),
+    !!state.th.q1.trim(), !!state.th.q2.trim(), !!state.th.q3.trim(), !!state.th.q4.trim(),
+    !!state.claim.trim()
+  ];
+  const done=checks.filter(Boolean).length, total=checks.length, pct=Math.round(done/total*100);
+  $('#barFill').style.width=pct+'%';
+  $('#pctText').textContent=pct+'%';
+  $('#pctNote').textContent = pct===100
+    ? '모든 항목을 작성했어요. 인쇄해서 제출하거나 발표에 활용해 보세요.'
+    : `${total}개 항목 중 ${done}개를 작성했어요. 빈 곳은 각 항목의 수정을 눌러 채울 수 있어요.`;
+}
+function savePdf(){
+  toast('인쇄 창에서 “PDF로 저장”을 선택하세요');
+  setTimeout(()=>window.print(), 800);
+}
+
+/* ===== 예시 · 초기화 ===== */
+const EXAMPLE = {
+  types:['d2'], typeOther:{},
+  cs:{
+    what:'지하철역에 엘리베이터가 없어서 휠체어를 이용하는 사람이 지하철을 타기 어려운 문제(장애인 이동권 문제)',
+    when:'2000년대부터 최근까지, 우리나라 여러 도시의 지하철역과 버스 정류장',
+    who:'휠체어를 이용하는 장애인, 유아차를 끄는 보호자와 어르신, 지하철을 운영하는 교통공사, 예산을 정하는 지방자치단체, 그 역을 이용하는 시민들',
+    happened:'어떤 지하철역에는 엘리베이터가 아예 없거나 한쪽 출구에만 있어서, 휠체어를 이용하는 사람은 그 역에서 내리지 못하고 다른 역까지 갔다가 되돌아와야 했다. 장애인 단체는 “이동할 권리를 보장해 달라”며 여러 해 동안 개선을 요구했고, 국가인권위원회도 이동권 보장이 필요하다는 의견을 밝혔다. 교통공사는 오래된 역은 공간이 좁고 예산이 많이 들어 모든 역에 한 번에 설치하기는 어렵다고 설명했다.',
+    problem:'엘리베이터가 없다는 것은 단순한 불편이 아니라, 장애가 있다는 이유로 학교·직장·병원에 갈 기회 자체가 줄어드는 일이다. 같은 요금을 내는데도 이용할 수 있는 역이 사람마다 다르다는 점이 공정하지 않다.'
+  },
+  sources:[
+    {title:'국가인권위원회 — 장애인 이동권 관련 자료', url:'https://www.humanrights.go.kr'},
+    {title:'보건복지부 — 장애인 편의시설 안내', url:'https://www.mohw.go.kr'}
+  ],
+  causes:['편견이나 고정관념 때문에','서로의 이해관계가 달라서','제도나 규칙 때문에'],
+  causeOther:'',
+  affects:['개인','특정 집단','지역 사회'],
+  affectOther:'',
+  positions:[
+    {content:'휠체어를 이용하는 사람들과 장애인 단체의 입장: 모든 역에 엘리베이터를 빨리 설치해야 한다.',
+     reason:'이동은 특별한 혜택이 아니라 누구에게나 필요한 기본적인 권리이고, 지금은 같은 요금을 내고도 갈 수 있는 곳이 제한되기 때문이다.'},
+    {content:'교통공사와 예산을 담당하는 기관의 입장: 순서를 정해 단계적으로 설치해야 한다.',
+     reason:'오래된 역은 공간이 좁아 공사가 어렵고 비용이 많이 들며, 한정된 예산으로 안전 시설 등 다른 일도 함께 해야 한다고 보기 때문이다.'}
+  ],
+  th:{
+    q1:'나는 이 문제가 단순한 시설 문제가 아니라 차별의 문제라고 생각한다. 일부러 막지 않았더라도, 결과적으로 어떤 사람은 갈 수 있고 어떤 사람은 갈 수 없다면 그것은 기회가 똑같이 주어지지 않은 것이기 때문이다.',
+    q2:'조사한 자료에 따르면 휠체어 이용자는 같은 요금을 내고도 내릴 수 있는 역이 훨씬 적었다. 나도 다리를 다쳤을 때 계단만 있는 곳에서 되돌아 나온 적이 있는데, 그때 “나는 여기에 오면 안 되는 사람인가” 하는 기분이 들었다. 그래서 시설이 없다는 것은 마음에도 상처를 준다고 생각한다.',
+    q3:'첫째, 나라와 지방자치단체가 언제까지 어느 역에 설치할지 계획을 공개하고 예산을 늘려야 한다. 둘째, 새로 짓는 건물과 역은 처음부터 누구나 쓸 수 있게 설계해야 한다. 셋째, 설치 순서를 정할 때 장애인 단체와 주민이 함께 이야기하는 자리를 만들어야 오해와 갈등이 줄어든다고 생각한다.',
+    q4:'승강기 앞에서 급하게 뛰어들어 타지 않고 휠체어나 유아차에 먼저 자리를 양보하겠다. 그리고 우리 학교와 동네에 계단만 있는 곳이 어디인지 찾아보고 학급 게시판에 알리겠다.'
+  },
+  claim:'누구나 원하는 곳으로 이동할 수 있어야 학교에 다니고 일할 기회도 공평해지기'
+};
+function loadExample(){
+  if(!confirm('수업 시범용 예시 결과를 불러올까요?\n\n지금 작성한 내용은 예시로 바뀝니다.')) return;
+  state = JSON.parse(JSON.stringify({...blank(), ...EXAMPLE}));
+  save(); renderAll(); goStep(5);
+  toast('예시 결과를 불러왔어요');
+}
+function resetAll(){
+  if(!confirm('작성한 내용을 모두 지우고 처음부터 다시 시작할까요?')) return;
+  state = blank();
+  try{ localStorage.removeItem(KEY); }catch(e){}
+  renderAll(); goStep(1);
+  toast('처음부터 다시 시작해요');
+}
+
+/* ===== 시작 ===== */
+function renderAll(){ renderTypeGrid(); renderSources(); renderChecks(); renderPositions(); refreshFields(); }
+load();
+bindFields();
+renderAll();
+renderStepbar();
+goStep(1);
+</script>
+</body>
+</html>

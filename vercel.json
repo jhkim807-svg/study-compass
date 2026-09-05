@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/social", "destination": "/차별갈등탐구.html" },
+    { "source": "/study", "destination": "/학습성향진단.html" }
+  ]
+}
